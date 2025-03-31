@@ -1,0 +1,15 @@
+12
+2
+	Id	Prefab
+	1	FX_Hit
+	2	FX_AttackTrail
+	3	FX_Skill1
+	4	FX_Skill2
+	5	FX_Fireball
+	6	FX_Fireball_Shooting_Straight
+	7	FX_Heal
+	8	FX_Impact_Wood
+	9	FX_Confetti
+	10	FX_Bomb_AttackArea
+	11	FX_Fireball_Target
+	
