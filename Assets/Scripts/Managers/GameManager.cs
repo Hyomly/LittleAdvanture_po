@@ -29,8 +29,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     public void GainCoin()
     {
         m_stageCoins++;
-        m_hudCoin.CountCoin();
-        UIManager.Instance.ShowCoins(m_stageCoins);
+        m_hudCoin.CountCoin();                       //머리위 코인 보여주기
+        UIManager.Instance.ShowCoins(m_stageCoins);  //UI 코인 보여주기
     }
     public void StartTimer()
     {
@@ -59,17 +59,22 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     public void CompletedGame()
     {
         StopAllCoroutines();
+        //------------------------ Mission 확인
         IsOver(true);
         CheckDamage(m_isDamage);
         CheckPlayTime(m_curTime);
-        if (m_curStage == PlayerGameData.Instance.CurActivateStage)
+        //------------------------ Clear한 Mission 보여주기
+        UIManager.Instance.ShowClearMission(m_mission1, m_mission2, m_mission3);
+        UIManager.Instance.ShowCompletePanel();
+        ClearMissionCount();
+        //------------------------ 활성화 할 Stage 늘리기
+        if (m_curStage == PlayerGameData.Instance.CurActivateStage) 
         {
             PlayerGameData.Instance.CurActivateStage++;
         }
-        UIManager.Instance.ShowClearMission(m_mission1,m_mission2,m_mission3);
-        UIManager.Instance.ShowCompletePanel();
-        ClearMissionCount();
+        //코인 정보
         PlayerGameData.Instance.MyCoin += m_stageCoins;
+        PlayerGameData.Instance.SaveData();
     }
     public void GameOver()
     {
@@ -78,6 +83,11 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     #endregion [Public Mathods]
 
     #region [Mathods]
+
+
+    //---------------------------------Mission 체크
+    
+        //최종 Clear 별 갯수
     void ClearMissionCount()
     {
         var clearCount = 0;
@@ -110,6 +120,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             m_mission3 = true;
         }
     }
+
+    //-----------------------------------
     void SettingPlayer()
     {
         m_player.transform.position = Vector3.zero;

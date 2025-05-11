@@ -17,11 +17,15 @@ public class StageManager : SingletonDontDestroy<StageManager>
     public int m_selectStage;    
     public Dictionary<int, GameObject> Stages => m_stages;
 
+
+    //Stage number 알아와서 GameScene 로드
     public void SetStage(int stageIdx)
     {
         m_selectStage = stageIdx;
         LoadScene.Instance.LoadSceneAsync(SceneState.Game);  
     }
+
+    // GameScene에 맵 세팅
     public void SettingMap(int stageIdx)
     {
         m_battleArea.Clear();
@@ -37,11 +41,14 @@ public class StageManager : SingletonDontDestroy<StageManager>
         }
     }
     
+  
     void AddList(BattleAreaCtrl battleArea)
     {
         m_battleArea.Add(battleArea);
     }
 
+
+    //스테이지 Resources에서 불러오기
     void LoadStage()
     {
         var stages = Resources.LoadAll<GameObject>("Stages");
